@@ -4,12 +4,14 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/Chill-Peppa/react-mesto-api-full-gha
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 84.252.142.2
 
-Frontend https://...
+Frontend https://mesto.deploy.nomoredomains.monster
 
-Backend https://...
+Backend https://api.mesto.deploy.nomoredomains.monster
+
+`sudo nano /etc/nginx/sites-available/default`
