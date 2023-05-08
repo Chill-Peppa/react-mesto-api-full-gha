@@ -10,6 +10,7 @@ const router = require('./routes');
 const { auth } = require('./middlewares/auth');
 const { pageNotFound } = require('./middlewares/pageNotFound');
 const { centralErrorHandler } = require('./middlewares/centralErrorHandler');
+const cors = require('./middlewares/cors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
+
+app.use(cors);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
