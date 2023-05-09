@@ -6,7 +6,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { Api } from '../utils/api';
+import Api from '../utils/api';
 import { auth } from '../utils/auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { RenderLoadingContext } from '../contexts/RenderLoadingContext';
@@ -17,10 +17,10 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import PageNotFound from '../components/PageNotFound';
 
 const api = new Api({
-  url: 'https://api.mesto.deploy.nomoredomains.monster',
+  url: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json',
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    authorization: `Bearer ${localStorage.getItem('token')}`,
   },
 });
 

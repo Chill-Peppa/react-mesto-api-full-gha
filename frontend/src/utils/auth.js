@@ -42,7 +42,7 @@ class Auth {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
       .then(this._returnResponse)
@@ -51,5 +51,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-  baseUrl: 'https://api.mesto.deploy.nomoredomains.monster',
+  baseUrl: 'http://localhost:3001',
 });
