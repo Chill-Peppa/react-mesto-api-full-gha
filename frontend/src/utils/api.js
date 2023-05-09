@@ -35,7 +35,7 @@ class Api {
   updateUserInfo(data) {
     return this._request(`${this._url}/users/me`, {
       headers: this._headers,
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(data),
     });
   }
@@ -44,7 +44,7 @@ class Api {
   postCard(data) {
     return this._request(`${this._url}/cards`, {
       headers: this._headers,
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
     });
   }
@@ -53,7 +53,7 @@ class Api {
   sendUserAvatar(data) {
     return this._request(`${this._url}/users/me/avatar`, {
       headers: this._headers,
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(data),
     });
   }
@@ -62,7 +62,7 @@ class Api {
   deleteCard(id) {
     return this._request(`${this._url}/cards/${id}`, {
       headers: this._headers,
-      method: "DELETE",
+      method: 'DELETE',
     });
   }
 
@@ -71,21 +71,15 @@ class Api {
     if (isLiked) {
       return this._request(`${this._url}/cards/${id}/likes`, {
         headers: this._headers,
-        method: "DELETE",
+        method: 'DELETE',
       });
     } else {
       return this._request(`${this._url}/cards/${id}/likes `, {
         headers: this._headers,
-        method: "PUT",
+        method: 'PUT',
       });
     }
   }
 }
 
-export const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-58",
-  headers: {
-    "Content-Type": "application/json",
-    authorization: "fa0e36d5-ce77-4b43-9654-baaa45f07f34",
-  },
-});
+export { Api };

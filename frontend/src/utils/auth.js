@@ -14,8 +14,8 @@ class Auth {
   register(email, password) {
     console.log(email, password); //www.nastya97@yandex.ru 11111
     return fetch(`${this._baseUrl}/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: `${email}`, password: `${password}` }),
     }).then(this._returnResponse);
   }
@@ -23,14 +23,14 @@ class Auth {
   //метод для авторизации в системе
   authorization(email, password) {
     return fetch(`${this._baseUrl}/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: `${email}`, password: `${password}` }),
     })
       .then(this._returnResponse)
       .then((data) => {
         if (data.token) {
-          localStorage.setItem("token", data.token);
+          localStorage.setItem('token', data.token);
           return data;
         }
       });
@@ -39,10 +39,10 @@ class Auth {
   //метод проверки валидности токена
   checkToken() {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
       .then(this._returnResponse)
@@ -51,5 +51,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-  baseUrl: "https://auth.nomoreparties.co",
+  baseUrl: 'https://api.mesto.deploy.nomoredomains.monster',
 });

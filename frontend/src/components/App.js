@@ -1,20 +1,28 @@
-import React from "react";
-import Main from "./Main";
-import ImagePopup from "./ImagePopup";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import ConfirmDeletePopup from "./ConfirmDeletePopup";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { api } from "../utils/api";
-import { auth } from "../utils/auth";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { RenderLoadingContext } from "../contexts/RenderLoadingContext";
-import Login from "../components/Login";
-import Register from "../components/Register";
-import InfoTooltip from "../components/InfoTooltip";
-import ProtectedRoute from "../components/ProtectedRoute";
-import PageNotFound from "../components/PageNotFound";
+import React from 'react';
+import Main from './Main';
+import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import ConfirmDeletePopup from './ConfirmDeletePopup';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Api } from '../utils/api';
+import { auth } from '../utils/auth';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { RenderLoadingContext } from '../contexts/RenderLoadingContext';
+import Login from '../components/Login';
+import Register from '../components/Register';
+import InfoTooltip from '../components/InfoTooltip';
+import ProtectedRoute from '../components/ProtectedRoute';
+import PageNotFound from '../components/PageNotFound';
+
+const api = new Api({
+  url: 'https://api.mesto.deploy.nomoredomains.monster',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+  },
+});
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -25,16 +33,16 @@ function App() {
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
   const [isCardPopupOpen, setIsCardPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
-    name: "",
-    link: "",
+    name: '',
+    link: '',
   });
 
-  const [currentUser, setCurrentUser] = React.useState({ name: "", about: "" });
+  const [currentUser, setCurrentUser] = React.useState({ name: '', about: '' });
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState('');
 
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
   const [isSignSuccess, setIsSignSuccess] = React.useState(false);
@@ -54,7 +62,7 @@ function App() {
 
   //проверяем токен
   React.useEffect(() => {
-    const jwt = localStorage.getItem("token");
+    const jwt = localStorage.getItem('token');
 
     if (jwt) {
       auth
@@ -62,7 +70,7 @@ function App() {
         .then((res) => {
           setEmail(res.data.email);
           setLoggedIn(true);
-          navigate("/main", { replace: true });
+          navigate('/main', { replace: true });
         })
         .catch((err) => {
           console.error(`${err}`);
@@ -76,7 +84,7 @@ function App() {
       .then(() => {
         setIsSignSuccess(true);
         setIsTooltipOpen(true);
-        navigate("/sign-in", { replace: true });
+        navigate('/sign-in', { replace: true });
       })
       .catch((err) => {
         setIsSignSuccess(false);
@@ -90,9 +98,9 @@ function App() {
       .authorization(email, password)
       .then((data) => {
         if (data.token) {
-          setEmail("");
+          setEmail('');
           handleLogin();
-          navigate("/main", { replace: true });
+          navigate('/main', { replace: true });
         }
       })
       .catch((err) => {
@@ -133,7 +141,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsCardPopupOpen(false);
     setIsConfirmPopupOpen(false);
-    setSelectedCard({ name: "", link: "" });
+    setSelectedCard({ name: '', link: '' });
     setIsTooltipOpen(false);
   };
 
@@ -145,7 +153,7 @@ function App() {
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card._id ? newCard : c)),
         );
       })
       .catch((err) => {
@@ -158,7 +166,7 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c) => (c._id === card._id ? "" : c)));
+        setCards((state) => state.filter((c) => (c._id === card._id ? '' : c)));
         closeAllPopups();
       })
       .catch((err) => {
