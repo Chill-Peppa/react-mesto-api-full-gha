@@ -10,7 +10,7 @@ const createCard = (req, res, next) => {
   Card.create({ name, link, owner: _id })
     .then((newCard) => {
       Card.findOne(newCard)
-        .populate(['likes', 'owner'])
+        .populate(['owner'])
         .then((card) => res.status(201).send(card));
     })
     .catch((err) => {
@@ -67,6 +67,7 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: owner } }, // добавить _id в массив, если его там нет
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Передан несуществующий id карточки.');
@@ -92,6 +93,7 @@ const dislikeCard = (req, res, next) => {
     { $pull: { likes: owner } }, // убрать _id из массива
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Передан несуществующий id карточки.');
