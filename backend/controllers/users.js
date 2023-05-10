@@ -41,7 +41,7 @@ const getInfoMe = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден.');
       } else {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       }
     })
     .catch((err) => {
@@ -97,7 +97,7 @@ const login = (req, res, next) => {
 
         const token = jwt.sign(
           { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+          NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
           {
             expiresIn: '7d',
           },

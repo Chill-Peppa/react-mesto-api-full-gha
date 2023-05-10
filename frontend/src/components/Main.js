@@ -3,21 +3,21 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 function Main(props) {
   //подписываемся на контекст
   const currentUser = React.useContext(CurrentUserContext);
-  const navigate = useNavigate();
+//  const navigate = useNavigate();
 
-  const signOut = () => {
+  /*const signOut = () => {
     localStorage.removeItem("token");
     navigate("/sign-in", { replace: true });
-  };
+  };*/
 
   return (
     <>
-      <Header email={props.email} text="Выйти" onClick={signOut} />
+      <Header email={props.email} text="Выйти" onClick={props.onSignOut} />
       <main className="content">
         <section className="profile">
           <div className="profile__area">

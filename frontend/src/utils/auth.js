@@ -28,12 +28,12 @@ class Auth {
       body: JSON.stringify({ email: `${email}`, password: `${password}` }),
     })
       .then(this._returnResponse)
-      .then((data) => {
+      /*.then((data) => {
         if (data.token) {
           localStorage.setItem('token', data.token);
           return data;
         }
-      });
+      });*/
   }
 
   //метод проверки валидности токена

@@ -16,14 +16,6 @@ import InfoTooltip from '../components/InfoTooltip';
 import ProtectedRoute from '../components/ProtectedRoute';
 import PageNotFound from '../components/PageNotFound';
 
-const api = new Api({
-  url: 'http://localhost:3001',
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-  },
-});
-
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
@@ -37,7 +29,7 @@ function App() {
     link: '',
   });
 
-  const [currentUser, setCurrentUser] = React.useState({ name: '', about: '' });
+  const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -48,35 +40,33 @@ function App() {
   const [isSignSuccess, setIsSignSuccess] = React.useState(false);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    loggedIn &&
-      Promise.all([api.getUserInfo(), api.getAllCards()])
-        .then(([userArr, initialCards]) => {
-          setCurrentUser(userArr);
-          setCards(initialCards);
-        })
-        .catch((err) => {
-          console.error(`Ошибка: ${err}`);
-        });
-  }, [loggedIn]);
+  const api = new Api({
+    url: 'http://localhost:3001',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
 
   //проверяем токен
   React.useEffect(() => {
     const jwt = localStorage.getItem('token');
+    console.log(jwt)
 
     if (jwt) {
       auth
         .checkToken()
         .then((res) => {
-          setEmail(res.data.email);
+          setEmail(res.email);
           setLoggedIn(true);
-          navigate('/main', { replace: true });
+ //         navigate('/main', { replace: true });
         })
         .catch((err) => {
           console.error(`${err}`);
         });
     }
   }, [navigate]);
+
 
   const onRegister = (email, password) => {
     auth
@@ -98,6 +88,7 @@ function App() {
       .authorization(email, password)
       .then((data) => {
         if (data.token) {
+          localStorage.setItem('token', data.token)
           setEmail('');
           handleLogin();
           navigate('/main', { replace: true });
@@ -109,8 +100,32 @@ function App() {
       });
   };
 
+  React.useEffect(() => {
+    loggedIn &&
+      Promise.all([api.getUserInfo(), api.getAllCards()])
+        .then(([userArr, initialCards]) => {
+          setCurrentUser(userArr);
+          setCards(initialCards);
+          console.log(`массив юзера: ${userArr}`)
+          console.log(`массив юзера2: ${userArr.data}`)
+          console.log(`массив юзера3: ${JSON.stringify(userArr)}`)
+          navigate('/main', { replace: true });
+        })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
+
+
   const handleLogin = () => {
     setLoggedIn(true);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigate("/sign-in", { replace: true });
+    setLoggedIn(false);
   };
 
   const handleCardClick = (card) => {
@@ -260,6 +275,7 @@ function App() {
                     onCardDelete={handleDeleteClick}
                     cards={cards}
                     loggedIn={loggedIn}
+                    onSignOut={handleSignOut}
                   />
                 }
               />
