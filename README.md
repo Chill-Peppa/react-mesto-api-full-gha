@@ -14,3 +14,5 @@ Frontend https://mesto.deploy.nomoredomains.monster
 
 Backend https://api.mesto.deploy.nomoredomains.monster
 
+//rebuild front
+
