@@ -14,4 +14,3 @@ Frontend https://mesto.deploy.nomoredomains.monster
 
 Backend https://api.mesto.deploy.nomoredomains.monster
 
-`sudo nano /etc/nginx/sites-available/default`

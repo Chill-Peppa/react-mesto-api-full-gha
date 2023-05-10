@@ -41,7 +41,7 @@ function App() {
   const navigate = useNavigate();
 
   const api = new Api({
-    url: 'http://localhost:3001',
+    url: 'https://api.mesto.deploy.nomoredomains.monster',
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -99,7 +99,7 @@ function App() {
         setIsTooltipOpen(true);
       });
   };
-//комментарий для автотестов
+
   React.useEffect(() => {
     loggedIn &&
       Promise.all([api.getUserInfo(), api.getAllCards()])
