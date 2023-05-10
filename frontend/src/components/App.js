@@ -59,7 +59,6 @@ function App() {
         .then((res) => {
           setEmail(res.email);
           setLoggedIn(true);
- //         navigate('/main', { replace: true });
         })
         .catch((err) => {
           console.error(`${err}`);
@@ -106,9 +105,6 @@ function App() {
         .then(([userArr, initialCards]) => {
           setCurrentUser(userArr);
           setCards(initialCards.reverse());
-          console.log(`массив юзера: ${userArr}`)
-          console.log(`массив юзера2: ${userArr.data}`)
-          console.log(`массив юзера3: ${JSON.stringify(userArr)}`)
           navigate('/main', { replace: true });
         })
         .catch((err) => {

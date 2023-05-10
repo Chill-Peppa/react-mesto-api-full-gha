@@ -13,4 +13,3 @@ IP 84.252.142.2
 Frontend https://mesto.deploy.nomoredomains.monster
 
 Backend https://api.mesto.deploy.nomoredomains.monster
-//test config
