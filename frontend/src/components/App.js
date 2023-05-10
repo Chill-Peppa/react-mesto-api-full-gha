@@ -99,7 +99,7 @@ function App() {
         setIsTooltipOpen(true);
       });
   };
-
+//комментарий для автотестов
   React.useEffect(() => {
     loggedIn &&
       Promise.all([api.getUserInfo(), api.getAllCards()])
