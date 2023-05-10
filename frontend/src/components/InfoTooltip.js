@@ -21,7 +21,7 @@ function InfoTooltip(props) {
           src={props.isSuccess ? signup : error}
         />
         <p className="popup__tooltip-text">
-          {props.isSuccess ? props.successText : props.ErrorText}
+          {props.isSuccess ? props.successText : props.errorText}
         </p>
       </div>
     </div>
