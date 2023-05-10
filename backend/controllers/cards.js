@@ -9,7 +9,9 @@ const createCard = (req, res, next) => {
 
   Card.create({ name, link, owner: _id })
     .then((newCard) => {
-      res.status(201).send(newCard);
+      Card.findOne(newCard)
+        .populate(['likes', 'owner'])
+        .then((card) => res.status(201).send(card));
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

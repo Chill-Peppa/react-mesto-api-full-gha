@@ -105,7 +105,7 @@ function App() {
       Promise.all([api.getUserInfo(), api.getAllCards()])
         .then(([userArr, initialCards]) => {
           setCurrentUser(userArr);
-          setCards(initialCards);
+          setCards(initialCards.reverse());
           console.log(`массив юзера: ${userArr}`)
           console.log(`массив юзера2: ${userArr.data}`)
           console.log(`массив юзера3: ${JSON.stringify(userArr)}`)
