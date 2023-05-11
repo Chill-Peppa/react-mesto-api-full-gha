@@ -1,5 +1,5 @@
 // eslint-disable-next-line operator-linebreak
-const regExp =
+const urlRegExp =
   /http(s)?:\/\/(www\.)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]+\.[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]+/;
 
 const allowedCors = [
@@ -14,6 +14,6 @@ const allowedCors = [
 ];
 
 module.exports = {
-  regExp,
+  urlRegExp,
   allowedCors,
 };

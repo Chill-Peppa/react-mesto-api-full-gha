@@ -1,5 +1,5 @@
 const { Joi } = require('celebrate');
-const { regExp } = require('./constants');
+const { urlRegExp } = require('./constants');
 
 const loginValidation = {
   body: Joi.object().keys({
@@ -14,14 +14,14 @@ const registrationValidation = {
     password: Joi.string().required().min(8),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(regExp),
+    avatar: Joi.string().regex(urlRegExp),
   }),
 };
 
 const createCardValidation = {
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().regex(regExp),
+    link: Joi.string().required().regex(urlRegExp),
   }),
 };
 
@@ -58,7 +58,7 @@ const updateProfileValidation = {
 
 const updateAvatarValidation = {
   body: Joi.object().keys({
-    avatar: Joi.string().regex(regExp).required(),
+    avatar: Joi.string().regex(urlRegExp).required(),
   }),
 };
 
